@@ -1,6 +1,23 @@
-﻿namespace WebApplication1.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
+using WebApplication1.Infrastructure;
 
-public class SecretsController
+namespace WebApplication1.Controllers;
+
+[ApiController]
+[Route("secrets")]
+public class SecretsController : ControllerBase
 {
-    
+    private readonly KeyVaultReader _keyVaultReader;
+
+    public SecretsController(KeyVaultReader keyVaultReader)
+    {
+        _keyVaultReader = keyVaultReader;
+    }
+
+    [HttpGet("{secretName}")]
+    public IActionResult GetSecret(string secretName)
+    {
+        var secret = _keyVaultReader.GetSecret(secretName);
+        return Ok(secret);
+    }
 }

@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
+using WebApplication1.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<KeyVaultReader>();
 
 builder.Services.AddControllers();
 
